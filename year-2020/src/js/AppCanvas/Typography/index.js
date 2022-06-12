@@ -72,10 +72,10 @@ export default class Typography extends Mesh {
     return texture
   }
 
-  update(time) {
+  update({ time, deltaTime }) {
     const mx = -Config.sceneWidth / 2 + (Pointer.x / window.innerWidth) * Config.sceneWidth
     const my = Config.sceneHeight / 2 - (Pointer.y / window.innerHeight) * Config.sceneHeight
-    this.tween.step({ x: -mx, y: -my })
+    this.tween.update({ x: -mx, y: -my }, deltaTime)
 
     this.material.uniforms.time.value = time
     this.material.uniforms.mouse.value.x = this.tween.position.x

@@ -31,7 +31,7 @@ export default class AppCanvas extends BaseCanvas {
   update({ time, deltaTime }) {
     if (!this.isReady) return
 
-    this.typo.update(time)
+    this.typo.update({ time, deltaTime })
     this.renderer.render(this.scene, this.camera)
   }
 }
