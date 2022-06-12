@@ -5,6 +5,7 @@ import AppCanvas from './AppCanvas'
 let app = null
 let lastUpdateTime = performance.now()
 
+// リサイズ管理用オブジェクト
 const resize = {
   prevSize: { w: 0, h: 0 },
   checkTime: 0,
@@ -20,6 +21,7 @@ function update() {
   requestAnimationFrame(update)
 
   const time = performance.now() * 0.001
+  // リサイズすべきかチェック
   if (checkResize(time)) {
     app.resize()
   }
@@ -27,10 +29,12 @@ function update() {
   const deltaTime = time - lastUpdateTime
   lastUpdateTime = time
 
+  // appを更新
   app.update({ time, deltaTime })
 }
 
 function checkResize(time) {
+  // 設定したinterval秒が経過している場合のみ処理を実行
   if (time - resize.checkTime < resize.interval) return false
   resize.checkTime = time
 
