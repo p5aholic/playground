@@ -1,17 +1,17 @@
 @use './reset';
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-feature-settings: 'palt';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior: none;
   touch-action: none;
-}
-
-html,
-body {
-  width: 100%;
-  height: 100%;
+  overflow: hidden;
 }
 
 #CanvasContainer {
@@ -21,8 +21,4 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  canvas {
-    width: 100%;
-    height: 100%;
-  }
 }

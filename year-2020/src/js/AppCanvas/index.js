@@ -17,7 +17,7 @@ export default class AppCanvas extends BaseCanvas {
     document.fonts.add(kaeruFontFace)
 
     this.typo = new Typography()
-    this.scene.add(this.typo)
+    this.scene.add(this.typo.mesh)
 
     this.resize()
     this.isReady = true

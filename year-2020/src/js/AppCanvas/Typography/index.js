@@ -14,11 +14,9 @@ import Config from '../Config'
 import vertexShader from './shader/vert.glsl'
 import fragmentShader from './shader/frag.glsl'
 
-export default class Typography extends Mesh {
+export default class Typography {
   constructor() {
-    super()
-
-    this.geometry = new PlaneGeometry(2, 2)
+    const geometry = new PlaneGeometry(2, 2)
 
     const texture = this.createTexture({
       size: 1024,
@@ -26,7 +24,7 @@ export default class Typography extends Mesh {
       fontFamily: 'KaeruKaeru',
     })
 
-    this.material = new RawShaderMaterial({
+    const material = new RawShaderMaterial({
       uniforms: {
         texture: { value: texture },
         time: { value: 0 },
@@ -40,6 +38,7 @@ export default class Typography extends Mesh {
       depthWrite: false,
     })
 
+    this.mesh = new Mesh(geometry, material)
     this.tween = new Tween2({ x: 0, y: 0 }, 30)
   }
 
@@ -77,8 +76,8 @@ export default class Typography extends Mesh {
     const my = Config.sceneHeight / 2 - (Pointer.y / window.innerHeight) * Config.sceneHeight
     this.tween.update({ x: -mx, y: -my }, deltaTime)
 
-    this.material.uniforms.time.value = time
-    this.material.uniforms.mouse.value.x = this.tween.position.x
-    this.material.uniforms.mouse.value.y = this.tween.position.y
+    this.mesh.material.uniforms.time.value = time
+    this.mesh.material.uniforms.mouse.value.x = this.tween.position.x
+    this.mesh.material.uniforms.mouse.value.y = this.tween.position.y
   }
 }
