@@ -3,7 +3,7 @@
 import AppCanvas from './AppCanvas'
 
 let app = null
-let lastUpdateTime = performance.now()
+let lastUpdateTime = 0
 
 // リサイズ管理用オブジェクト
 const resize = {
@@ -14,6 +14,7 @@ const resize = {
 
 document.addEventListener('DOMContentLoaded', () => {
   app = new AppCanvas()
+  lastUpdateTime = performance.now() * 0.001
   update()
 })
 

@@ -39,7 +39,7 @@ export default class Typography {
     this.mesh = new Mesh(geometry, material)
 
     // ポインターの動きをなめらかにするためのTweenを作成
-    this.tween = new Tween2({ x: 0, y: 0 }, 30)
+    this.tween = new Tween2({ x: 0, y: 0 }, 10)
   }
 
   createTexture({ size, text, fontFamily }) {
