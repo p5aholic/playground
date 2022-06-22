@@ -2,10 +2,10 @@
 
 // Exponential Tween For Vector1
 class Tween {
-  constructor(x, alphaSpeed) {
+  constructor(x, omega) {
     this.x = x
     this.velocity = 0
-    this.alphaSpeed = alphaSpeed
+    this.omega = omega
   }
 
   lerp(value1, value2, alpha) {
@@ -13,7 +13,7 @@ class Tween {
   }
 
   update(target, delta) {
-    const alpha = Math.exp(-this.alphaSpeed * delta)
+    const alpha = Math.exp(-this.omega * delta)
     const newX = this.lerp(target, this.x, alpha)
 
     this.velocity = newX - this.x
@@ -28,10 +28,10 @@ class Tween {
 
 // Exponential Tween For Vector2
 class Tween2 {
-  constructor({ x, y }, alphaSpeed) {
+  constructor({ x, y }, omega) {
     this.position = { x, y }
     this.velocity = { x: 0, y: 0 }
-    this.alphaSpeed = alphaSpeed
+    this.omega = omega
     this.direction = 0
   }
 
@@ -40,7 +40,7 @@ class Tween2 {
   }
 
   update(target, delta) {
-    const alpha = Math.exp(-this.alphaSpeed * delta)
+    const alpha = Math.exp(-this.omega * delta)
     const newX = this.lerp(target.x, this.position.x, alpha)
     const newY = this.lerp(target.y, this.position.y, alpha)
 
@@ -60,6 +60,14 @@ class Tween2 {
     this.velocity.x = 0
     this.velocity.y = 0
     this.direction = 0
+  }
+
+  set x(value) {
+    this.position.x = value
+  }
+
+  set y(value) {
+    this.position.y = value
   }
 
   get x() {
