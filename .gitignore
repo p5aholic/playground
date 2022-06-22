@@ -1,7 +1,6 @@
 .DS_Store
 node_modules
 
-001-particle-emitter
 002-adaptive-precision
 003-motion-typography
 005-type-lighter
