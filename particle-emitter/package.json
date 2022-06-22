@@ -1,14 +1,14 @@
 {
-  "name": "001-particle-emmiter",
+  "name": "particle-emmiter",
   "scripts": {
     "start": "npm run server & npm run watch",
     "server": "browser-sync start -c ./config/bs-config.js",
     "build": "npm run build:css && npm run build:js",
     "prod": "npm run prod:css && npm run prod:js",
     "watch": "npm run watch:css & npm run watch:js",
-    "build:css": "node ./task/build-css.js",
-    "watch:css": "node ./task/build-css.js watch",
-    "prod:css": "node ./task/build-css.js prod",
+    "build:css": "node ./build-css.js",
+    "watch:css": "node ./build-css.js watch",
+    "prod:css": "node ./build-css.js prod",
     "build:js": "webpack --mode development --config ./config/webpack.config.js",
     "watch:js": "webpack --mode development --config ./config/webpack.config.js -w",
     "prod:js": "webpack --mode production --config ./config/webpack.config.js",
@@ -25,8 +25,7 @@
   ],
   "dependencies": {
     "@pixi/math-extras": "^6.4.2",
-    "pixi.js": "^6.4.2",
-    "three": "^0.141.0"
+    "pixi.js": "^6.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
