@@ -8,8 +8,8 @@ const sass = require('sass')
 const postcss = require('postcss')
 const autoprefixer = require('autoprefixer')
 
-const srcCssPath = path.resolve(__dirname, '../src/css')
-const destCssPath = path.resolve(__dirname, '../public/css')
+const srcCssPath = path.resolve(__dirname, './src/css')
+const destCssPath = path.resolve(__dirname, './public/css')
 
 const srcFile = path.join(srcCssPath, 'style.scss')
 const destFile = path.join(destCssPath, 'style.css')
