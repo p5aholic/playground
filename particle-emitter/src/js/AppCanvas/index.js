@@ -8,27 +8,26 @@ import EMath from 'Utils/EMath'
 import { Tween2 } from 'Utils/Tween'
 
 export default class AppCanvas extends PIXI.Application {
-  constructor(params) {
-    super(params)
+  constructor(options) {
+    super(options)
 
     // Texture
     const $canvas = document.createElement('canvas')
-    $canvas.width = 64
-    $canvas.height = 64
+    const texSize = 64
+    $canvas.width = texSize
+    $canvas.height = texSize
 
     const ctx = $canvas.getContext('2d')
-    ctx.clearRect(0, 0, 64, 64)
+    ctx.clearRect(0, 0, texSize, texSize)
     ctx.fillStyle = '#fff'
     ctx.beginPath()
-    ctx.arc(32, 32, 32, 0, Math.PI * 2.0)
+    ctx.arc(texSize / 2, texSize / 2, texSize / 2, 0, Math.PI * 2.0)
     ctx.fill()
 
     // Ball
-    this.ball = PIXI.Sprite.from($canvas, {
-      width: 64,
-      height: 64,
-      resolution: this.renderer.resolution,
-    })
+    this.ball = PIXI.Sprite.from($canvas)
+    this.ball.width = 50
+    this.ball.height = 50
     this.ball.anchor.set(0.5)
     this.ball.velocity = new PIXI.Point(0, 0)
     this.ball.prevPosition = new PIXI.Point(0, 0)
@@ -52,11 +51,9 @@ export default class AppCanvas extends PIXI.Application {
     const paletts = [0xe65800, 0xe6d700, 0x17e600, 0x00e6d3, 0x0051e6, 0xe6004d]
 
     for (let i = 0; i < this.numParticles; i++) {
-      const particle = PIXI.Sprite.from($canvas, {
-        width: 64,
-        height: 64,
-        resolution: this.renderer.resolution,
-      })
+      const particle = PIXI.Sprite.from($canvas)
+      particle.width = 10
+      particle.height = 10
 
       // Pick a randome color in pallets
       const pi = Math.floor(Math.random() * paletts.length)
@@ -138,13 +135,13 @@ export default class AppCanvas extends PIXI.Application {
       const p = this.particles.children[i]
       p.tween.update(p.target, deltaTime)
 
-      const speed = Math.max(EMath.magnitude(p.tween.velocity.x, p.tween.velocity.y), 0.01)
+      const speed = EMath.magnitude(p.tween.velocity.x, p.tween.velocity.y)
       const angle = p.seed * Math.PI * 2.0 + time
       p.x = p.tween.x + (30.0 / speed) * Math.cos(angle)
       p.y = p.tween.y + (30.0 / speed) * Math.sin(angle)
 
       p.alpha = speed
-      p.scale.set(speed * 0.15)
+      p.scale.set(speed * 0.1)
     }
   }
 }
