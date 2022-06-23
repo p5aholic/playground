@@ -40,8 +40,8 @@ export default class AppCanvas extends PIXI.Application {
     this.numParticles = 5000
     this.emitCount = 0
     this.particles = new PIXI.ParticleContainer(this.numParticles, {
-      scale: true,
       position: true,
+      scale: true,
       alpha: true,
     })
     this.particles.blendMode = PIXI.BLEND_MODES.ADD
@@ -58,10 +58,7 @@ export default class AppCanvas extends PIXI.Application {
       // Pick a randome color in pallets
       const pi = Math.floor(Math.random() * paletts.length)
       particle.tint = paletts[pi]
-
       particle.anchor.set(0.5)
-      particle.x = Math.random() * this.screen.width
-      particle.y = Math.random() * this.screen.height
       particle.alpha = 0
       particle.target = { x: 0, y: 0 }
       particle.tween = new Tween2({ x: 0, y: 0 }, 1)
@@ -92,8 +89,8 @@ export default class AppCanvas extends PIXI.Application {
     this.ball.prevPosition.x = this.ball.x
     this.ball.prevPosition.y = this.ball.y
 
-    //* V(t+1) = V(t) + delta * A
-    //* X(t+1) = X(t) + delta * V
+    //* V(f+1) = V(f) + A
+    //* X(f+1) = X(f) + V
     this.ball.velocity = this.ball.velocity.add(A.multiplyScalar(timeScale))
     this.ball.position = this.ball.position.add(this.ball.velocity.multiplyScalar(timeScale))
     this.ball.velocity = this.ball.velocity.multiplyScalar(Math.pow(D, timeScale))
@@ -112,12 +109,15 @@ export default class AppCanvas extends PIXI.Application {
 
     // Number of particles emitted per frame
     const emit = Math.min(Math.floor(ballSpeed * 0.2), this.numParticles * 0.1)
+
     for (let i = 0; i < emit; i++) {
       const p = this.particles.children[this.emitCount]
+
       const rAngle = Math.random() * Math.PI * 0.25
       const rLength = 0.2 + 0.8 * Math.random()
       const emitX = EMath.lerp(this.ball.prevPosition.x, this.ball.x, i / emit)
       const emitY = EMath.lerp(this.ball.prevPosition.y, this.ball.y, i / emit)
+
       p.x = emitX
       p.y = emitY
       p.tween.x = emitX
@@ -125,7 +125,6 @@ export default class AppCanvas extends PIXI.Application {
       p.target.x = emitX + 10 * ballSpeed * rLength * Math.cos(direction + rAngle)
       p.target.y = emitY + 10 * ballSpeed * rLength * Math.sin(direction + rAngle)
       p.alpha = 1
-      p.direction = direction
 
       this.emitCount = ++this.emitCount % this.numParticles
     }
