@@ -136,9 +136,10 @@ export default class AppCanvas extends PIXI.Application {
       p.tween.update(p.target, deltaTime)
 
       const speed = EMath.magnitude(p.tween.velocity.x, p.tween.velocity.y)
-      const angle = p.seed * Math.PI * 2.0 + time
-      p.x = p.tween.x + (30.0 / speed) * Math.cos(angle)
-      p.y = p.tween.y + (30.0 / speed) * Math.sin(angle)
+      const r = 30 / EMath.constrain(speed, 0.01, 10)
+      const angle = p.seed * Math.PI * 2.0
+      p.x = p.tween.x + r * Math.cos(angle + time * 0.1)
+      p.y = p.tween.y + r * Math.sin(angle + time * 0.1)
 
       p.alpha = speed
       p.scale.set(speed * 0.1)
