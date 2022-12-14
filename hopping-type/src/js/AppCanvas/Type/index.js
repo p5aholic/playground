@@ -22,7 +22,7 @@ export default class Typography extends Mesh {
 
     const bgColor = new Color('hsl(210, 100%, 10%)')
     const matColor = new Color('hsl(345, 100%, 50%)')
-    bgColor.lerp(matColor, this.index / 9)
+    bgColor.lerp(matColor, (this.index + 1) / 10)
 
     this.material = new RawShaderMaterial({
       uniforms: {
