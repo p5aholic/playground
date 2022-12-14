@@ -20,6 +20,7 @@ export default class Typography extends Mesh {
 
     this.geometry = new PlaneGeometry(size, size)
 
+    //* 背景色から、上に行くほど赤色に遷移する色をつくる
     const bgColor = new Color('hsl(210, 100%, 10%)')
     const matColor = new Color('hsl(345, 100%, 50%)')
     bgColor.lerp(matColor, (this.index + 1) / 10)
@@ -72,7 +73,7 @@ export default class Typography extends Mesh {
       },
     )
 
-    this.rotDir = Math.sign(dir)
+    this.rotDir = dir
     this.targetRot = this.rotDir * Math.PI * 2.0
 
     await sleep((0.1 + 9 * 0.05) * 2)
@@ -80,6 +81,7 @@ export default class Typography extends Mesh {
   }
 
   update() {
+    // const height = this.hopTween.height * this.index * 0.05
     const height = Math.pow(this.hopTween.height * this.index * 0.05, 2.0)
     this.position.z = this.initialZ + height
 

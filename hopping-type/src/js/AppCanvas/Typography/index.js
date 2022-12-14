@@ -35,8 +35,9 @@ export default class Typography extends Group {
     const range = 1.5
     const div = 10
     const size = range / div
-
     let gIndex = 0
+
+    //* 10x10のグリッド上に配置する
     for (let xi = 0; xi < div; xi++) {
       for (let yi = 0; yi < div; yi++) {
         const x = -range / 2 + xi * (range / div) + size / 2
@@ -44,6 +45,7 @@ export default class Typography extends Group {
 
         const texture = this.createTexture({ size: 128 })
 
+        //* numStacks分上に積み上げる
         for (let i = 0; i < this.numStacks; i++) {
           const type = new Type({
             size,
@@ -54,6 +56,7 @@ export default class Typography extends Group {
           })
           this.add(type)
 
+          //* 最初のスタックのみ配列に保存
           if (i === 0) {
             this.firstStacks.push(type)
           }
@@ -97,18 +100,22 @@ export default class Typography extends Group {
     this.pointer.x = -1 + (Pointer.x / window.innerWidth) * 2
     this.pointer.y = 1 - (Pointer.y / window.innerHeight) * 2
 
+    //* firstStacksの中から、ポインターと交差したオブジェクトを探す
     this.raycaster.setFromCamera(this.pointer, camera)
     const intersects = this.raycaster.intersectObjects(this.firstStacks)
 
     for (let i = 0; i < intersects.length; i++) {
       const gIndex = intersects[i].object.gIndex
+      //* 交差しているオブジェクトがアニメーション中ならスキップ
       if (this.children[gIndex].isAnimating) continue
 
+      //* 積み上がっている全オブジェクトをアニメーション
       for (let j = gIndex; j < gIndex + this.numStacks; j++) {
-        this.children[j].animate(Pointer.x - this.prevX)
+        this.children[j].animate(Math.sign(Pointer.x - this.prevX))
       }
     }
 
+    //* オブジェクトを更新
     for (let i = 0; i < this.numChildren; i++) {
       this.children[i].update(time)
     }
