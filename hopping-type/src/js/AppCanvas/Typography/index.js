@@ -20,6 +20,7 @@ export default class Typography extends Group {
     this.numStacks = 10
     this.firstStacks = []
     this.create()
+
     this.numChildren = this.children.length
 
     this.rotation.x = -Math.PI * 0.32
@@ -40,8 +41,8 @@ export default class Typography extends Group {
     //* 10x10のグリッド上に配置する
     for (let xi = 0; xi < div; xi++) {
       for (let yi = 0; yi < div; yi++) {
-        const x = -range / 2 + xi * (range / div) + size / 2
-        const y = -range / 2 + yi * (range / div) + size / 2
+        const x = -range / 2 + xi * size + size / 2
+        const y = -range / 2 + yi * size + size / 2
 
         const texture = this.createTexture({ size: 128 })
 

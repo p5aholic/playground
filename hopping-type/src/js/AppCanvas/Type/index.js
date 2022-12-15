@@ -11,7 +11,7 @@ import sleep from 'Utils/sleep'
 import vertexShader from './shader/vert.glsl'
 import fragmentShader from './shader/frag.glsl'
 
-export default class Typography extends Mesh {
+export default class Type extends Mesh {
   constructor({ position, size, texture, index, gIndex }) {
     super()
 
